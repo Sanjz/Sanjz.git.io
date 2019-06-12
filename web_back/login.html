@@ -9,9 +9,29 @@
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/iconfont.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" href="./js/bootstrap/css/bootstrap.min.css">
 </head>
 
 <body>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="main_wrap">
         <div class="header">
             <a href="#" class="logo"><img src="images/logo.png" alt=""></a>
@@ -29,8 +49,49 @@
             </form>
         </div>
 
-    </div> 
+    </div>
+    <script src="./js/jquery-1.12.4.min.js"></script>
+    <script src="./js/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        $('.input_sub').on('click', function (e) {
 
+            e.preventDefault();
+            var usrName = $('.input_txt').val();
+            var usrPassword = $('.input_pass').val();
+            // if(usrName == ""||usrPassword == ""){
+            //     alert('用户名或者密码没有输入');
+            // }
+
+            $.ajax({
+                url: 'https://autumnfish.cn/big/admin/login',
+                type: 'post',
+                data: {
+                    user_name: usrName,
+                    password: usrPassword
+                },
+                success: function (backData) {
+                    // console.log(backData)
+                    if (backData.code != 200) {
+                        $('#myModal').modal();
+                        $('.modal-body').text('登录失败');
+                        $('.btn-primary').on('click', function () {
+                            window.location.href = '#';
+                        })
+                    } else {
+                        $('#myModal').modal();
+                        $('.modal-body').text('登录成功');
+                        $('.btn-primary').on('click', function () {
+                            window.location.href = './index.html';
+                        })
+                    }
+                }
+            })
+        });
+
+
+
+
+    </script>
 </body>
 
 </html>
