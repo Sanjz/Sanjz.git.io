@@ -65,6 +65,19 @@
         </div>
     </div>
 
+    <script>
+        window.onload = function(){
+            $.ajax({
+                type:'get',
+                url:'http://localhost:8000/admin/getuser',
+                success:function(backData){
+                    alert(2)
+                    console.log(backData);
+                }
+            })
+        }
+    </script>
+
 </body>
 
 </html>
